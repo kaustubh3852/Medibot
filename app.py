@@ -24,8 +24,11 @@ def chat():
             return jsonify({"error": "No message provided"}), 400
 
         response = client.models.generate_content(
-            model="gemini-2.0-flash",
-            contents=user_message
+            model="gemini-2.5-flash",
+            contents=user_message,
+            config={
+                "system_instruction": "You are MediBot, a helpful AI healthcare assistant. Give short, concise answers in 2-5 lines only based on situations. And give treatment also.  Always recommend consulting a doctor for serious conditions."
+            }
         )
         print("Response:", response.text)
         return jsonify({"reply": response.text})
